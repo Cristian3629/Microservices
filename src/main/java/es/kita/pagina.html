@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Pruebas API RESTful Spark</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<h1>Sistema de Gestion</h1>
+<h3 class = "format"> ¿ Qué objeto desea manipular ?</h3>
+<select id = "object" class = "format">
+  <option value="subject">Materias</option>
+  <option value="career">Carreras</option>
+  <option value="student">Alumnos</option>
+  <option value="course">Cursos</option>
+</select>
+
+<h3 id = "h3action" class = "format"> Accion posible </h3>
+<select id = "action" class = "format">
+  <option value="ac1">ac1</option>
+  <option value="ac2">ac2</option>
+  <option value="ac3">ac3</option>
+  <option value="ac4">ac4</option>
+</select>
+
+<form action="/action_page.php" id = "form">
+  First name:<br>
+  <input type="text" name="fname"><br>
+  Last name:
+  <br>
+  <input type="text" name="lname"><br>
+</form>
+<input type="submit" value="Enviar" id = "enviar">
+
+<table style="width:100%" id = "result">
+</table>
+<script src="https://code.jquery.com/jquery-git.js"></script>
+<script script type="text/javascript">
+$("table").hide();
+</script>
+<script src="hello.js"></script>
+<link rel="stylesheet" href="style.css">
+<body>
+
+</html>
