@@ -22,7 +22,9 @@ public class StudentService {
     public StudentService() {
         // Carga de usuarios de pruebas
         students = new LinkedList<Student>();
+        contador++;
         students.add(new Student("001", "Periquito", "perico@correo.es"));
+        contador++;
         students.add(new Student("007", "James Bond", "james.bond@007.com"));
     }
 
@@ -42,7 +44,7 @@ public class StudentService {
      */
     public Student getStudent(String padron) {
       System.out.println("GetStudent");
-      
+
       Student salida = null;
 
         for (Student student : students) {
@@ -62,6 +64,7 @@ public class StudentService {
      * @return Usuario creado.
      */
     public Student createStudent(String name, String email) {
+        System.out.println("Student Service create student name:"+name+ " email:"+email);
         contador++;
         Student student = new Student(contador + "", name, email);
         students.add(student);
@@ -70,7 +73,7 @@ public class StudentService {
 
     /**
      * Actualiza los datos de usuario con el id dado.
-     * @param id padronentificador del usuario.
+     * @param id padron del usuario.
      * @param name nombre del usuario.
      * @param email email del usuario.
      * @return Usuario con los datos modificados.

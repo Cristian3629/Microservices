@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Subject{
 
-  private String name;
   private String id;
+  private String name;
 
   public Subject(String id, String name){
     this.id = id;

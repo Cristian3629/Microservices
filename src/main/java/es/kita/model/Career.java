@@ -3,23 +3,25 @@ package es.kita.model;
 
 public class Career{
 
-  private String id;
+  private String codigo;
   private String name;
+  private String plan;
 
 
-  public Career(String codigo, String name){
+  public Career(String codigo, String name,String plan){
     super();
-    this.id = id;
+    this.codigo = codigo;
     this.name = name;
+    this.plan = plan;
   }
 
 
-  public String getId(){
-    return this.id;
+  public String getcodigo(){
+    return this.codigo;
   }
 
-  public void setId(String id){
-    this.id = id;
+  public void setcodigo(String codigo){
+    this.codigo = codigo;
   }
 
   public String getName(){
@@ -29,6 +31,14 @@ public class Career{
 
   public void setName(String name){
     this.name = name;
+  }
+
+  public String getPlan(){
+    return  this.plan;
+  }
+
+  public void setPlan(String plan){
+    this.plan = plan;
   }
 
 }

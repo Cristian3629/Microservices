@@ -16,9 +16,9 @@ public class SubjectService {
         // Carga de usuarios de pruebas
         subjects = new LinkedList<Subject>();
         subjects.add(new Subject("001", "Tecnicas de Diseño"));
-        subjects.add(new Subject("002", "Organizacion de Computadoras"));
+        subjects.add(new Subject("002", "Organización de Computadoras"));
         subjects.add(new Subject("003", "Base de Datos"));
-        subjects.add(new Subject("004", "Analisis de la Informacion"));
+        subjects.add(new Subject("004", "Análisis de la Informacion"));
         subjects.add(new Subject("005", "Arquitectura de Software"));
         subjects.add(new Subject("006", "Teoria del Lenguaje"));
         subjects.add(new Subject("007", "Señales"));

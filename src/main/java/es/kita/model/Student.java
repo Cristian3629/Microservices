@@ -1,9 +1,13 @@
 package es.kita.model;
 
+
+import es.kita.model.Career;
+
 public class Student {
     private String padron;
     private String name;
     private String email;
+    private Career carrera;
 
 
     public Student(String padron, String name, String email) {
