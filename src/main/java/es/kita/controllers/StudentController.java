@@ -12,10 +12,23 @@ import static spark.Spark.put;
 import com.google.gson.Gson;
 
 
+import es.kita.utils.Request;
+
+
+
 public class StudentController {
+
     public StudentController(final StudentService studentService) {
         // Método para tratar los gets de /Students
         get("/students", (request, response) -> studentService.getAllStudents(), new JsonTransformer());
+
+
+        get("/students/:padron", (request, response) -> {
+            String padron = request.params(":padron");
+            System.out.println("students Controller get padron:"+padron);
+            return "Algo";
+        }, new JsonTransformer());
+
 
         post("/students", (req, res) -> {
         System.out.println("POST STUDENTS");
@@ -45,22 +58,26 @@ public class StudentController {
 
 
       //Actualiza los datos
-      put("/students/:idUser", (req, res) -> {
+        put("/students/career/:padron", (req, res) -> {
 
         System.out.println("PUT");
-        String idUser = req.params(":idUser");
+        String idUser = req.params(":padron");
 
         // Se cargan los parámetros de la query (URL)
-        String name = req.queryParams("name");
-        String email = req.queryParams("email");
-        String career = req.queryParams("carrera");
+        String career = req.queryParams("carrera").replaceAll(" ", "%20");;
+        String plan = req.queryParams("plan");
 
-        Student student = studentService.getStudent(idUser);
-        if (student != null) {
-          return studentService.updateStudent(idUser, name, email);
+        //System.out.println("Este es el parseo career:"+career+"plan:"+plan);
+        //aca verifico que los datos sean validos
+        String url = "http://localhost:4567/careers/"+career+"?plan="+plan;
+        Request request = new Request(url,"GET");
+        System.out.println("Respuesta del request:"+request.isOk());
+        if (request.isOk()){
+          return studentService.updateCareerFromStudent(idUser,career,plan);
         }
+        //return studentService.updateStudent(idUser, name, email);
         res.status(400);
-        return "No user with id '" + idUser + "' found";
+        return "El usuario "+idUser+" no fue encontrado o los datos de la carrera son incorrectos";
       }, new JsonTransformer());
 
 

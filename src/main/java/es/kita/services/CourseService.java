@@ -1,7 +1,6 @@
 package es.kita.services;
 
 
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,26 +14,35 @@ public class CourseService{
 
   public CourseService(){
     this.courses = new LinkedList<Course>();
-    this.courses.add(new Course("001","001","Carlos Montana"));
-    this.courses.add(new Course("001","002","Adriana Martinez"));
-    this.courses.add(new Course("001","003","Pedro Fontana"));
-    this.courses.add(new Course("002","003","Claudia Gonzalez"));
-    this.courses.add(new Course("001","004","Romina Gonzalez"));
-    this.courses.add(new Course("002","004","Leticia Perez"));
-    this.courses.add(new Course("003","004","Celestino Riquelme"));
-    this.courses.add(new Course("002","001","Lucas Prado"));
-    this.courses.add(new Course("002","002","Matias Benitez"));
+    this.courses.add(new Course("001","Tecnicas de Diseño","Carlos Montana","1"));
+    this.courses.add(new Course("002","Tecnicas de Diseño","Adriana Martinez","1"));
+    this.courses.add(new Course("003","Tecnicas de Diseño","Pedro Fontana","1"));
+    this.courses.add(new Course("002","Base de Datos","Claudia Gonzalez","2"));
+    this.courses.add(new Course("001","Base de Datos","Romina Gonzalez","2"));
+    this.courses.add(new Course("002","Teoria del Lenguaje","Leticia Perez","1"));
+    this.courses.add(new Course("003","Teoria del Lenguaje","Celestino Riquelme","1"));
+    this.courses.add(new Course("002","Señales","Lucas Prado","1"));
+    this.courses.add(new Course("001","Analisis II","Matias Benitez","2"));
+    this.courses.add(new Course("002","Analisis II","Matias Gonzalez","2"));
+    this.courses.add(new Course("003","Analisis II","Cristian Perez","2"));
+    this.courses.add(new Course("004","Analisis II","Pedro Juanes","1"));
+    this.courses.add(new Course("001","Fisica III","Juliana Benitez","1"));
+    this.courses.add(new Course("002","Fisica I","Matias Medina","2"));
+    this.courses.add(new Course("001","Arquitectura de Software","Alejando Ayala","1"));
+    this.courses.add(new Course("003","Analisis II","Sebastian Benitez","1"));
+    this.courses.add(new Course("006","Tecnicas de Diseño","Maite Angelone","2"));
+    this.courses.add(new Course("003","Tecnicas de Diseño","Leopoldo Ramirez","1"));
   }
 
   public List<Course> getAllCourses(){
     return courses;
   }
 
-  public Course getCourse(String id,String idSubject){
-    System.out.println("Quiero obtener curso con id:"+id+"idSubject:"+idSubject);
+  public Course getCourse(String id,String subject_name){
+    System.out.println("Quiero obtener curso con id:"+id+"idSubject:"+subject_name);
     Course salida =  null;
     for (Course course: courses ) {
-      if(course.getId().equals(id) || course.getIdSubject().equals(idSubject)){
+      if(course.getId().equals(id) || course.getSubjectName().equals(subject_name)){
         salida = course;
         return salida;
       }
@@ -55,10 +63,10 @@ public class CourseService{
 
 
 
-  public List<Course> getCoursesByIdSubject(String idSubject){
+  public List<Course> getCoursesBySubjectName(String subject_name){
     List<Course> salida = new LinkedList<Course>();
     for (Course course :courses ) {
-      if (course.getIdSubject().equals(idSubject)){
+      if (course.getSubjectName().equals(subject_name)){
         salida.add(course);
       }
     }
@@ -66,9 +74,7 @@ public class CourseService{
   }
 
   public Course createCourse(String id, String name,String teacherName){
-    Course course = new Course(id,name,teacherName);
-    courses.add(course);
-    return course;
+    return null;
   }
 
 
@@ -81,6 +87,20 @@ public class CourseService{
       }
     }
     return salida;
+  }
+
+  public List<Course> getCoursesByCuatrimestreAndBySubject(String cuatrimestre,String subject_name){
+    List<Course> list = new LinkedList<Course>();
+
+    for (Course course : courses ) {
+      if(course.getSubjectName().equals(subject_name) && course.getCuatrimestre().equals(cuatrimestre)){
+        list.add(course);
+      }
+    }
+    if (list.isEmpty()){
+      list.add(new Course("",subject_name,"",""));
+    }
+    return list;
   }
 
 }

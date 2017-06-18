@@ -28,4 +28,15 @@ public class CareerService {
         return careers;
     }
 
+
+    public Career getCareerFromNameAndPlan(String name,String plan){
+      for (Career career : careers) {
+        //System.out.println("Carrera nombre:"+career.getName()+"y el name:"+name);
+        if (career.getName().equals(name) && career.getPlan().equals(plan)){
+          return career;
+        }
+      }
+      return null;
+    }
+
 }

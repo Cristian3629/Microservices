@@ -3,43 +3,30 @@
 <head>
    <title>Arquitectura de Software</title>
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<h1>Sistema de Gestion</h1>
-<h3 class = "format"> ¿ Qué objeto desea manipular ?</h3>
-<select id = "object" class = "format">
-  <option value="subject">Materia</option>
-  <option value="career">Carrera</option>
-  <option value="student">Alumno</option>
-  <option value="course">Curso</option>
-</select>
-
-<h3 id = "h3action" class = "format"> Accion posible </h3>
-<select id = "action" class = "format">
-  <option value="ac1">ac1</option>
-  <option value="ac2">ac2</option>
-  <option value="ac3">ac3</option>
-  <option value="ac4">ac4</option>
-</select>
-
-<form id = "form">
-</form>
-<br>
-<select id = 'select'>
-</select>
-
-<input type="submit" value="Enviar" id = "enviar">
-
-<table style="width:100%" id = "result">
-</table>
-<script src="jquery-3.2.1.min.js"></script>
-<script script type="text/javascript">
-$("table").hide();
-$("form").hide();
-$("#select").hide();
-</script>
-<script src="hello.js"></script>
-<script src="requests.js"></script>
-<link rel="stylesheet" href="style.css">
 <body>
+
+<script type="text/javascript">
+var port = "4567";
+var xmlHttp = new XMLHttpRequest();
+var action = "GET";
+var path = "http://localhost:"+port+"/students/007";
+xmlHttp.open(action,path,true);
+//xmlHttp.setRequestHeader('Content-Type','application/json');
+
+
+xmlHttp.onload = function () {
+  if (xmlHttp.readyState === xmlHttp.DONE) {
+      if (xmlHttp.status === 200) {
+          console.log(xmlHttp.response);
+          console.log(xmlHttp.responseText);
+          console.log(xmlHttp.status);
+      }
+  }
+};
+
+xmlHttp.send();
+
+</script>
+</body>
 
 </html>

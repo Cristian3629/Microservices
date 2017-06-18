@@ -2,7 +2,7 @@ var careerActions = ["Mostrar carreras","Agregar carrera","Eliminar Carrera"]
 var subjectActions = ["Mostrar cursos de Materia","Eliminar Materia","Agregar Materia"];
 var courseActions = ["Agregar Curso","Eliminar Curso","Mostrar cursos"]
 var studentActions = ["Agregar Alumno","Eliminar Alumno","Actualizar Información","Inscribir a Materia","Mostrar alumnos","Inscribir a Carrera"];
-var currentAction = null;
+
 var currentObject = null;
 var selectedValue = null;
 
@@ -14,14 +14,14 @@ var object;
 //algunas datos para poder realizar el request, para eso necesito saber si para
 //el request que me piden, necesito información extra, osea si se tuve que
 //mostrar el formulario, seguro son parametros para el request
-var seCargoFormulario = true;
+var seCargoFormulario;
 
 $(document).ready(function(){
 
   $('#action').click(function(){
+    seCargoFormulario = true;
     cleanPage();
     console.log("Click action");
-    cleanPage();
     var currentValue = this.value;
     console.log("current value:"+currentValue);
     switch (currentValue) {
@@ -29,38 +29,32 @@ $(document).ready(function(){
         addInpuToFormWithField("Padrón");
         addInpuToFormWithField("Nombre");
         addInpuToFormWithField("Email");
-        action = 'POST';
-        object = 'students';
+        setRestParams('POST','students');
         break;
       case "Eliminar Alumno":
-        accion = 'DELETE';
-        object = 'students';
+        setRestParams('DELETE','students');
         addInpuToFormWithField("Id");
         addInpuToFormWithField("Nombre");
         break;
       case "Actualizar Información":
-        accion = 'PUT';
-        object = 'students';
+        setRestParams('PUT','students');
         addInpuToFormWithField("Nombre");
         addInpuToFormWithField("Email");
         addInpuToFormWithField("Carrera");
         break;
       case "Inscribir a Materia":
-        object = 'students';
-        accion = 'PUT';
+        setRestParams('PUT','students');
         addInpuToFormWithField("Padron");
         addInpuToFormWithField("Materia");
         addInpuToFormWithField("Cuatrimestre");
         break;
       case "Inscribir a Carrera":
-        object = 'students';
-        accion = 'PUT';
         addInpuToFormWithField("Padron");
         showCareers();
+        setRestParams('PUT','students');
         break;
       case "Mostrar cursos de Materia":
-        accion = 'GET';
-        object = 'courses';
+        setRestParams('GET','courses');
         addInpuToFormWithField("Numero");
         addInpuToFormWithField("Nombre");
         addInpuToFormWithField("Cuatrimestre");
@@ -77,8 +71,7 @@ $(document).ready(function(){
 
 
 function showCareers(){
-  action = 'GET';
-  object = 'careers';
+  setRestParams('GET','careers');
   params = '';
   makeRequest(action,object,params,showList);
 }
@@ -105,31 +98,37 @@ function getParams(){
 }
 
 
-
+function setRestParams(action_s,object_s){
+  console.log('Set rest params action:'+action_s + 'object:'+object_s);
+  action = action_s;
+  object = object_s;
+}
 
   //Enviar equivale a realizar la accion
   $("#enviar").click(function(){
     var params = ''
-    var currentValue = $("#action").val();
-    console.log("La accion que quiere realizar es:"+currentValue);
-    if (currentValue == courseActions[2]){
-      action = 'GET';
-      object = 'courses';
+    var currentAction = $("#action").val();
+    console.log("La accion que quiere realizar es:"+currentAction);
+    switch (currentAction) {
+      case 'Inscribir a Carrera':
+        //var par = getParams();
+        //console.log('par:'+par);
+
+        break;
+      default:
+
     }
-    if (currentValue == subjectActions[0]){
-      loadBDDFromObject("subjects");
-      action = 'GET';
-      object = 'subjects';
-    }
-    if (currentValue == studentActions[4]){
-      action = 'GET';
-      object = 'students';
-    }
+
+
+
+
+
+
     if (seCargoFormulario){
       params = getParams();
     }
     console.log('makeRequest('+action+','+object+','+params+');')
-    makeRequest(action,object,params);
+    makeRequest(action,object,params,showInformation);
   });
 
 
@@ -172,8 +171,11 @@ function cleanPage(){
   hideTable();
   cleanTable();
   cleanForm();
+  cleanList();
 }
 
+
+//Inserto los campos con clase myInput
 function addInpuToFormWithField(field){
   $('#form').append(field+":");
   $('#form').append('<br>');
@@ -185,6 +187,9 @@ function addInpuToFormWithField(field){
   $('#form').append('<br>');
 }
 
+function cleanList(){
+  $('#select').hide();
+}
 
 
 function cleanTable(){

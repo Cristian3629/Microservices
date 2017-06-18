@@ -4,13 +4,15 @@ package es.kita.model;
 public class Course{
 
   private String id;
-  private String idSubject;
+  private String nameSubject;
   private String teacherName;
+  private String cuatrimestre;
 
-  public Course(String id,String idSubject,String teacherName){
+  public Course(String id,String nameSubject,String teacherName,String cuatrimestre){
     this.id = id;
-    this.idSubject = idSubject;
+    this.nameSubject = nameSubject;
     this.teacherName = teacherName;
+    this.cuatrimestre = cuatrimestre;
   }
 
   public String getId(){
@@ -21,12 +23,12 @@ public class Course{
     this.id = id;
   }
 
-  public void setIdSubject(String id){
-    this.idSubject = id;
+  public void setSubjectName(String subject_name){
+    this.nameSubject = subject_name;
   }
 
-  public String getIdSubject(){
-    return idSubject;
+  public String getSubjectName(){
+    return nameSubject;
   }
 
   public String getTeacherName(){
@@ -37,4 +39,11 @@ public class Course{
     this.teacherName = name;
   }
 
+  public void setCuatrimestre(String cuatrimestre){
+    this.cuatrimestre = cuatrimestre;
+  }
+
+  public String getCuatrimestre(){
+    return this.cuatrimestre;
+  }
 }

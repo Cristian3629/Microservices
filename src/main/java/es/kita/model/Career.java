@@ -8,6 +8,10 @@ public class Career{
   private String plan;
 
 
+  public Career(){
+    super();
+  }
+
   public Career(String codigo, String name,String plan){
     super();
     this.codigo = codigo;

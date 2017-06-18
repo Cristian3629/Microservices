@@ -9,12 +9,12 @@ public class Student {
     private String email;
     private Career carrera;
 
-
     public Student(String padron, String name, String email) {
         super();
         this.padron = padron;
         this.name = name;
         this.email = email;
+        this.carrera = new Career();
     }
 
     /**
@@ -44,5 +44,10 @@ public class Student {
 
     public String getEmail(){
       return this.email;
+    }
+
+    public void setCareer(String nombre_carrera,String plan_carrera){
+      carrera.setName(nombre_carrera);
+      carrera.setPlan(plan_carrera);
     }
 }

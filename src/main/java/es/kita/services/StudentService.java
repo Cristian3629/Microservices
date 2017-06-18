@@ -80,7 +80,7 @@ public class StudentService {
      */
     public Student updateStudent(String padron, String name, String email) {
         Student salida = null;
-
+        System.out.println("updateStudent");
         for (Student student : students) {
             if (student.getpadron().equals(padron)) {
                 student.setName(name);
@@ -91,6 +91,19 @@ public class StudentService {
         }
 
         return salida;
+    }
+
+    public Student updateCareerFromStudent(String padron,String nombre_carrera,String plan_carrera){
+      Student salida = null;
+      System.out.println("updateCareerFromStudent padron:"+padron+"nombre:"+nombre_carrera+"plan:"+plan_carrera);
+      for (Student student : students) {
+          if (student.getpadron().equals(padron)) {
+              student.setCareer(nombre_carrera,plan_carrera);
+              salida = student;
+              return salida;
+          }
+      }
+      return salida;
     }
 
 }

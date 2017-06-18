@@ -4,6 +4,7 @@ package es.kita.controllers;
 import es.kita.services.CourseService;
 import es.kita.utils.JsonTransformer;
 import es.kita.model.Course;
+import es.kita.utils.Request;
 
 
 import static spark.Spark.get;
@@ -12,29 +13,38 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 import com.google.gson.Gson;
 
+import org.json.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class CourseController {
+
     public CourseController(final CourseService courseService) {
         // Método para tratar los gets de /Courses
         get("/courses", (request, response) -> courseService.getAllCourses(), new JsonTransformer());
 
-        get("/courses/id/:id", (request, response) -> {
-          String id = request.params(":id");
-          return courseService.getCourseById(id);
+        get("/courses/cuatrimestre/:cuatrimestre",(req, res) -> {
+          String cuatrimestre = req.params(":cuatrimestre");
+
+          //Obtengo todas las materias que hay
+          String url = "http://localhost:4567/subjects";
+          Request request = new Request(url,"GET");
+
+          JSONArray jsonResponse = request.getResponse();
+
+          List<List<Course>> list = new LinkedList<List<Course>>();
+          for(int i = 0; i < jsonResponse.length(); i++){
+            JSONObject json_obj = jsonResponse.getJSONObject(i);
+            //System.out.println("JSONObject:"+json_obj.getString("name"));
+            String subject_name = json_obj.getString("name");
+            list.add(courseService.getCoursesByCuatrimestreAndBySubject(cuatrimestre,subject_name));
+          }
+
+          return list;
         }, new JsonTransformer());
 
-        get("/courses/idAsignature/:id",(request, response) -> {
-          String id = request.params(":id");
-          return courseService.getCoursesByIdSubject(id);
-        }, new JsonTransformer());
 
-        get("/courses/course/:id-:idAsignature",(request, response) -> {
-          System.out.println("request:"+request);
-          System.out.println("Get course");
-          String id = request.params(":id");
-          String idAsignature = request.params(":idAsignature");
-          return courseService.getCourse(id,idAsignature);
-        }, new JsonTransformer());
 
       //   post("/courses", (req, res) -> {
       //   // Se cargan los parámetros de la query (URL)

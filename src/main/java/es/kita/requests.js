@@ -30,6 +30,7 @@ function makeRequest(action,object,params,funcion){
 
 
 
+makeReqes
 //Dado el JSONObject, me fijo si es un array o no.
 function getArray(parse){
   var array;
