@@ -2,12 +2,17 @@ package es.kita.model;
 
 
 import es.kita.model.Career;
+import es.kita.model.Course;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Student {
     private String padron;
     private String name;
     private String email;
     private Career carrera;
+    private List<Course> cursos;
 
     public Student(String padron, String name, String email) {
         super();
@@ -15,6 +20,7 @@ public class Student {
         this.name = name;
         this.email = email;
         this.carrera = new Career();
+        this.cursos = new LinkedList<Course>();
     }
 
     /**
@@ -49,5 +55,17 @@ public class Student {
     public void setCareer(String nombre_carrera,String plan_carrera){
       carrera.setName(nombre_carrera);
       carrera.setPlan(plan_carrera);
+    }
+
+    public Boolean inscribirACurso(Course course){
+      if (this.getNumberOfCourses() <= 7){
+        cursos.add(course);
+        return true;
+      }
+      return false;
+    }
+
+    public int getNumberOfCourses(){
+      return cursos.size();
     }
 }

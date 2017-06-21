@@ -44,7 +44,21 @@ public class CourseController {
           return list;
         }, new JsonTransformer());
 
+        get("/courses/:id",(req,res)->{
+          String id = req.params(":id");
 
+          String materia = req.queryParams("materia");
+          String cuatrimestre = req.queryParams("cuatrimestre");
+
+          List<Course> list =  courseService.getCourseByIdAndAsignature(id,materia,cuatrimestre);
+
+          if (!list.isEmpty()){
+            res.status(200);
+            return list;
+          }
+          res.status(400);
+          return null;
+        },new JsonTransformer());
 
       //   post("/courses", (req, res) -> {
       //   // Se cargan los parámetros de la query (URL)

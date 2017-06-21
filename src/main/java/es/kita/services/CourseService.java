@@ -103,4 +103,16 @@ public class CourseService{
     return list;
   }
 
+
+  public List<Course> getCourseByIdAndAsignature(String id, String asignature_name,String cuatrimestre){
+    List<Course> list = new LinkedList<Course>();
+    for (Course course:courses ){
+        if (course.getId().equals(id) && course.getSubjectName().equals(asignature_name) && course.getCuatrimestre().equals(cuatrimestre)){
+          list.add(course);
+          return list;
+        }
+    }
+    return list;
+  }
+
 }

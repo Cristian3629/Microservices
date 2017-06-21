@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import es.kita.model.Student;
+import es.kita.model.Course;
 
 public class StudentService {
     /**
@@ -104,6 +105,18 @@ public class StudentService {
           }
       }
       return salida;
+    }
+
+    public Student addCourseToStudent(String id_student,Course course){
+      for (Student current_student : students) {
+        if (current_student.getpadron().equals(id_student)){
+          if (current_student.inscribirACurso(course)){
+            return current_student;
+          }
+
+        }
+      }
+      return null;
     }
 
 }
